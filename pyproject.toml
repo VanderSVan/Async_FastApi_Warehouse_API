@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "warehouse_api"
+version = "0.1.0"
+description = ""
+authors = ["VanderSVan <101255612+VanderSVan@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+SQLAlchemy = "^1.4.41"
+alembic = "^1.8.1"
+fastapi = "^0.84.0"
+pydantic = {extras = ["email", "dotenv"], version = "^1.10.2"}
+asyncpg = "^0.26.0"
+uvicorn = {extras = ["standard"], version = "^0.18.3"}
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
