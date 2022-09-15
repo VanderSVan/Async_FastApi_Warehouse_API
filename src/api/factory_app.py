@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import ProgrammingError
 
-from src.api.routers import product
+from src.api.routers import product, user, users_auth
 
 
 from src.utils.exceptions.base import JSONException
@@ -15,13 +15,15 @@ api_url = setting.API_URL
 
 def create_app(with_logger: bool = True):
 
-    application = FastAPI(title='Warehouse_API',
+    application = FastAPI(title='Warehouse-API',
                           version='0.1.0',
                           docs_url=f'{api_url}/docs',
                           redoc_url=f'{api_url}/redoc',
                           openapi_url=f'{api_url}/openapi.json')
 
     # Routers
+    application.include_router(users_auth.router, prefix=api_url)
+    application.include_router(user.router, prefix=api_url)
     application.include_router(product.router, prefix=api_url)
 
     # Exception handlers

@@ -1,5 +1,5 @@
 {
-  "post": "{} with id={} was successfully created.",
+  "post": "new {} was successfully created.",
   "patch": "{} with id={} was successfully updated.",
   "delete": "{} with id={} was successfully deleted.",
   "not_found": "{} with id={} not found.",
@@ -10,6 +10,7 @@
   "err_patch_no_data": "No data to update, check available fields.",
   "err_500": "Server side error.",
 
+  "registration_email": "E-mail has been sent to your email address.",
   "email_confirmed": "E-mail has been successfully confirmed.",
   "email_not_confirmed": "First confirm your email address.",
   "email_already_confirmed": "User = '{}' has already confirmed their e-mail address.",

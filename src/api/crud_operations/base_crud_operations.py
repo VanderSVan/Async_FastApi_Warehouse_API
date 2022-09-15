@@ -14,7 +14,6 @@ from src.utils.exceptions.crud.base import CRUDException
 class ModelOperation:
     model: BaseModel
     model_name: str
-    patch_schema: type(BaseSchema)
     db: Session
 
     async def get_max_id(self) -> int:
@@ -91,7 +90,7 @@ class ModelOperation:
         :return: True or raise exception if object is not found.
         """
         await self.find_by_id_or_404(id_)
-        query = update(self.model).where(self.model.id == id_).values(**new_data.dict())
+        query = update(self.model).where(self.model.id == id_).values(**new_data.dict(exclude_unset=True))
         return await QueryExecutor.patch_obj(query, self.db, self.model_name)
 
     async def delete_obj(self, id_: int) -> bool:

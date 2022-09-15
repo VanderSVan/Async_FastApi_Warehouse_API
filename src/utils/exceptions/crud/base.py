@@ -46,3 +46,10 @@ class CRUDException:
                                                        param_name,
                                                        param_value)
         )
+
+    @staticmethod
+    def raise_no_patch_data() -> NoReturn:
+        raise JSONException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            message=get_text('err_patch_no_data')
+        )
