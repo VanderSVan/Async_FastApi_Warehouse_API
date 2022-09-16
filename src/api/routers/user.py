@@ -55,9 +55,9 @@ async def get_user(user: UserSwaggerGet = Depends()
 async def delete_user(user: UserSwaggerDelete = Depends()
                       ) -> JSONResponse:
     """
-     Deletes user from db by user id.
-     Only available to admins.
-     """
+    Deletes user from db by user id.
+    Only available to admins.
+    """
     crud = UserOperation(user.db)
     await crud.delete_obj(user.user_id)
 

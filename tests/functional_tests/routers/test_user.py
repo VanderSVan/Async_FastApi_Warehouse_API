@@ -105,7 +105,7 @@ class TestUser:
                     "password": "stringst123/"
                 },
                 {
-                    'message': get_text("post").format('user', 4)
+                    'message': get_text("post").format('user')
                 }
         )
     ])
