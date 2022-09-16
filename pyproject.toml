@@ -21,6 +21,7 @@ celery = "^5.2.7"
 redis = "^4.3.4"
 flower = "^1.2.0"
 python-multipart = "^0.0.5"
+psycopg2-binary = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 

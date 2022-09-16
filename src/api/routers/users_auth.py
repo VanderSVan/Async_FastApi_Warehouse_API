@@ -70,7 +70,7 @@ async def register_user(user: UserAuthSwaggerRegisterUser = Depends()
     crud = UserAuthOperation(user.db)
 
     await crud.add_obj(user.data)
-    await crud.send_user_registration_email(user.data)
+    crud.send_user_registration_email(user.data)
 
     return JSONResponse(
         status_code=status.HTTP_200_OK,
@@ -107,7 +107,7 @@ async def reset_password(user: UserAuthSwaggerResetPassword = Depends()
     crud = UserAuthOperation(user.db)
 
     await crud.find_by_id_or_404(user.current_confirmed_user.id)
-    await crud.send_password_reset_email(user.current_confirmed_user)
+    crud.send_password_reset_email(user.current_confirmed_user)
 
     return JSONResponse(
         status_code=status.HTTP_200_OK,
@@ -115,18 +115,17 @@ async def reset_password(user: UserAuthSwaggerResetPassword = Depends()
     )
 
 
-@router.post('/users/auth/confirm-reset-password/{sign}/',
+@router.post('/confirm-reset-password/{sign}/',
              **asdict(UserAuthOutputConfirmNewPassword())
              )
-def confirm_reset_password(user: UserAuthSwaggerConfirmResetPassword = Depends()):
+async def confirm_reset_password(user: UserAuthSwaggerConfirmResetPassword = Depends()):
     """
     Gets the user's new password and saves it in the database.
     """
     decoded_user_data: dict = Signer.unsign_object(obj=user.sign)
     username: str = decoded_user_data.get('username')
-
     crud = UserAuthOperation(user.db)
-    crud.confirm_reset_password(username, user.new_password_data.password)
+    await crud.confirm_reset_password(username, user.new_password_data.password)
 
     return JSONResponse(
         status_code=status.HTTP_200_OK,

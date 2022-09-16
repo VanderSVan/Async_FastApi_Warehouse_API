@@ -7,6 +7,7 @@ from fastapi_mail import (
     MessageSchema,
     ConnectionConfig,
 )
+from pydantic import EmailStr
 
 from src.config import get_settings
 from src.utils.composing_email.utils import create_expire
@@ -32,7 +33,7 @@ email_config = ConnectionConfig(
 )
 
 
-def compose_confirm_email(email: str,
+def compose_confirm_email(email: EmailStr,
                           url: str
                           ) -> tuple[FastMail, list[MessageSchema, str]]:
     """
@@ -64,7 +65,7 @@ def compose_confirm_email(email: str,
     return fm, params
 
 
-def compose_reset_password_email(email: str,
+def compose_reset_password_email(email: EmailStr,
                                  url: str
                                  ) -> tuple[FastMail, list[MessageSchema, str]]:
     """
@@ -99,7 +100,7 @@ def compose_reset_password_email(email: str,
 
 def compose_email_with_action_link(
         username: str,
-        email: str,
+        email: EmailStr,
         action: Literal['confirm_email'] | Literal['reset_password'],
 ) -> tuple[FastMail, list[MessageSchema, str]]:
     """Sends email letter that contain action link."""
@@ -112,13 +113,13 @@ def compose_email_with_action_link(
         case 'confirm_email':
             # pasting encoded username into the url
             action_link: str = settings.CONFIRM_EMAIL_URL.format(encoded_user_data)
-
             email, params = compose_confirm_email(email=email, url=action_link)
+
         case 'reset_password':
             # pasting encoded username into the url
             action_link: str = settings.RESET_PASSWORD_URL.format(encoded_user_data)
-
             email, params = compose_reset_password_email(email=email, url=action_link)
+
         case _:
             logger.exception(
                 ValueError("The 'action' argument must be 'confirm_email' or 'reset_password' only.")
@@ -127,4 +128,5 @@ def compose_email_with_action_link(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 message=get_text('err_500')
             )
+
     return email, params

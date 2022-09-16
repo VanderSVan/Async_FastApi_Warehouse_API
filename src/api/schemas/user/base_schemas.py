@@ -17,10 +17,10 @@ class UserBaseSchema(BaseSchema):
 
 class UserPatchSchema(UserBaseSchema):
     username: str | None = Field(None, min_length=5, max_length=100)
-    email: EmailStr | None
+    email: EmailStr | None = Field(None)
     phone: str | None = Field(None, min_length=9, max_length=15, regex=r'^([\d]+)$')
-    role: Literal['admin'] | Literal['user'] | Literal['noname'] | None
-    status: Literal['confirmed'] | Literal['unconfirmed'] | None
+    role: Literal['admin'] | Literal['user'] | Literal['noname'] | None = Field(None)
+    status: Literal['confirmed'] | Literal['unconfirmed'] | None = Field(None)
 
 
 class UserDeleteSchema(UserBaseSchema):
@@ -62,7 +62,7 @@ class UserResetPasswordSchema(BaseSchema):
 class UserUpdatePasswordSchema(UserPatchSchema):
     hashed_password: str = Field(
         ...,
-        title='Password',
+        title='Hashed password',
         min_length=8,
         max_length=100,
     )

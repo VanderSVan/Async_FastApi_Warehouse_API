@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends, status
 from fastapi.security import OAuth2PasswordBearer
 
@@ -18,7 +18,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{api_url}/users/auth/token")
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme),
-                           db: Session = Depends(get_db)
+                           db: AsyncSession = Depends(get_db)
                            ) -> UserModel:
     """Gets the current user data from the JWT"""
     payload: dict = JWT.extract_payload_from_token(token)
