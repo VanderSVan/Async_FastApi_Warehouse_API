@@ -20,7 +20,7 @@ class UserAuthOperation(UserOperation):
         return user
 
     @staticmethod
-    async def send_user_registration_email(user: UserPostSchema) -> NoReturn:
+    def send_user_registration_email(user: UserPostSchema) -> NoReturn:
         """
         Composes email with action link and start sending letter to email using `celery`.
         """
@@ -36,17 +36,17 @@ class UserAuthOperation(UserOperation):
         return await self.patch_obj(user_obj.id, UserPatchSchema(status='confirmed'))
 
     @staticmethod
-    async def send_password_reset_email(user) -> NoReturn:
+    def send_password_reset_email(user) -> NoReturn:
         """
         Compose email with action link and start sending letter to email using `celery`.
         """
-        await send_email.delay(
+        send_email.delay(
             username=user.username,
             email=user.email,
             action='reset_password'
         )
 
-    async def confirm_reset_password(self, username: str, new_password) -> bool:
+    async def confirm_reset_password(self, username: str, new_password: str) -> bool:
         user_obj: UserModel = await self.find_by_param_or_404('username', username)
         hashed_password: str = PasswordCryptographer.bcrypt(new_password)
         return await self.patch_obj(
