@@ -19,6 +19,7 @@ class TestUser:
         assert response.status_code == 200
         assert 'application/json' in response.headers['Content-Type']
 
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("user_id", [1, 2, 3])
     async def test_get_user_by_id(self, user_id, async_client: AsyncClient):
         admin_token = await get_admin_token_headers(async_client)
@@ -30,6 +31,7 @@ class TestUser:
         assert 'application/json' in response.headers['Content-Type']
         assert response_id == user_id
 
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("phone, username", [
         ('0123456789', 'admin'),
         ('147852369', 'client1'),
@@ -44,6 +46,7 @@ class TestUser:
         assert 'application/json' in response.headers['Content-Type']
         assert response.json()[0]['username'] == username
 
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("status, number_of_users", [
         ("unconfirmed", 1),
         ("confirmed", 2)
@@ -58,6 +61,7 @@ class TestUser:
         assert len(response.json()) == number_of_users
 
     # DELETE
+    @pytest.mark.asyncio
     async def test_delete_user_by_id(self, async_client: AsyncClient):
         admin_token = await get_admin_token_headers(async_client)
         response = await async_client.delete(
@@ -69,6 +73,7 @@ class TestUser:
         assert response_msg == get_text('delete').format('user', 3)
 
     # PATCH
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("user_id, json_to_send, result_json", [
         (
                 3,
@@ -89,6 +94,7 @@ class TestUser:
         assert response.json() == result_json
 
     # POST
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("json_to_send, result_json", [
         (
                 {
@@ -114,6 +120,7 @@ class TestUser:
 
 
 class TestUserException:
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("user_id, json_to_send, result_json, status", [
         # give existent username
         (
@@ -146,6 +153,7 @@ class TestUserException:
         assert 'application/json' in response.headers['Content-Type']
         assert response.json() == result_json
 
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("json_to_send, result_json, status", [
         # give existent username
         (
@@ -193,6 +201,7 @@ class TestUserException:
         assert 'application/json' in response.headers['Content-Type']
         assert response.json() == result_json
 
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("json_to_send_patch, json_to_send_post", [
         (
                 {
