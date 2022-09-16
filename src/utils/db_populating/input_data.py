@@ -27,3 +27,18 @@ users_json: list = [
         "password": "123654789"
     }
 ]
+
+products_json: list = [
+    {
+        "id": 1,
+        "name": "jacket"
+    },
+    {
+        "id": 2,
+        "name": "pants"
+    },
+    {
+        "id": 3,
+        "name": "t-shirt"
+    }
+]
