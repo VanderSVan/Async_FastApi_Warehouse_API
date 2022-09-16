@@ -16,6 +16,7 @@ sys.path.append(str(project_dir))
 
 from src.db.db_sqlalchemy import BaseModel
 from src.config import get_settings
+from src.api.models.user import UserModel
 from src.api.models.price import PriceModel
 from src.api.models.product import ProductModel
 from src.api.models.product_count import ProductCountModel

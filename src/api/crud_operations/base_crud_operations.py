@@ -3,7 +3,7 @@ from typing import Any, NoReturn
 
 from pydantic import BaseModel as BaseSchema
 from sqlalchemy import select, delete, update, insert, func, asc
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.db.db_sqlalchemy import BaseModel
 from src.api.crud_operations.utils.base_crud_utils import QueryExecutor
@@ -14,8 +14,7 @@ from src.utils.exceptions.crud.base import CRUDException
 class ModelOperation:
     model: BaseModel
     model_name: str
-    patch_schema: type(BaseSchema)
-    db: Session
+    db: AsyncSession
 
     async def get_max_id(self) -> int:
         """
@@ -91,7 +90,7 @@ class ModelOperation:
         :return: True or raise exception if object is not found.
         """
         await self.find_by_id_or_404(id_)
-        query = update(self.model).where(self.model.id == id_).values(**new_data.dict())
+        query = update(self.model).where(self.model.id == id_).values(**new_data.dict(exclude_unset=True))
         return await QueryExecutor.patch_obj(query, self.db, self.model_name)
 
     async def delete_obj(self, id_: int) -> bool:

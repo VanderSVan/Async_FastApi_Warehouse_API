@@ -1,7 +1,7 @@
 from pathlib import Path
 from functools import lru_cache
 
-from pydantic import BaseSettings, Field
+from pydantic import BaseSettings, Field, EmailStr
 
 # Paths:
 api_dir = Path(__file__).parent
@@ -46,7 +46,7 @@ class Settings(BaseSettings):
     RESET_PASSWORD_URL: str = f'{FRONT_URL}' + '/reset-password/{}/'
     MAIL_USERNAME: str = Field(..., env='MAIL_USERNAME')
     MAIL_PASSWORD: str = Field(..., env='MAIL_PASSWORD')
-    MAIL_FROM: str = Field(..., env='MAIL_FROM')
+    MAIL_FROM: EmailStr = Field(..., env='MAIL_FROM')
     MAIL_PORT: int = Field(..., env='MAIL_PORT')
     MAIL_SERVER: str = Field(..., env='MAIL_SERVER')
     MAIL_FROM_NAME: str = Field(..., env='MAIL_FROM_NAME')
@@ -54,6 +54,18 @@ class Settings(BaseSettings):
     MAIL_SSL: bool = False
     USE_CREDENTIALS: bool = True
     VALIDATE_CERTS: bool = True
+
+    # REDIS related settings
+    REDIS_HOST: str = Field(..., env='REDIS_HOST')
+    REDIS_PORT: str = Field(..., env='REDIS_PORT')
+    REDIS_PASSWORD: str = Field(..., env='REDIS_PASSWORD')
+    REDIS_DB_NUMBER: int = 0
+
+    # CELERY related settings
+    CELERY_BROKER_TRANSPORT_OPTIONS: dict = {'visibility_timeout': 3600}
+    CELERY_ACCEPT_CONTENT: list = ['application/json']
+    CELERY_TASK_SERIALIZER: str = 'json'
+    CELERY_RESULT_SERIALIZER: str = 'json'
 
     class Config:
         env_file = project_dir.joinpath(".env")
@@ -87,6 +99,18 @@ class Settings(BaseSettings):
             f"{self.TEST_DATABASE['db_name']}"
         )
 
+    def get_redis_url(self) -> str:
+        """
+        Gets the full path to the redis database.
+        :return: URL string.
+        """
+        return (
+            f"redis://:"
+            f"{self.REDIS_PASSWORD}@"
+            f"{self.REDIS_HOST}:"
+            f"{self.REDIS_PORT}/"
+            f"{self.REDIS_DB_NUMBER}"
+        )
 
 @lru_cache()
 def get_settings() -> Settings:

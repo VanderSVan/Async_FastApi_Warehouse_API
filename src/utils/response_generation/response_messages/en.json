@@ -1,5 +1,5 @@
 {
-  "post": "{} with id={} was successfully created.",
+  "post": "new {} was successfully created.",
   "patch": "{} with id={} was successfully updated.",
   "delete": "{} with id={} was successfully deleted.",
   "not_found": "{} with id={} not found.",
@@ -10,6 +10,7 @@
   "err_patch_no_data": "No data to update, check available fields.",
   "err_500": "Server side error.",
 
+  "registration_email": "E-mail has been sent to your email address.",
   "email_confirmed": "E-mail has been successfully confirmed.",
   "email_not_confirmed": "First confirm your email address.",
   "email_already_confirmed": "User = '{}' has already confirmed their e-mail address.",
@@ -17,18 +18,7 @@
   "forbidden_request": "Access is denied.",
   "reset_password": "A password reset email has been sent to your email",
   "changed_password": "Password has been successfully changed.",
-
-  "schedule_err_open_equal_close": "fields 'open_time' and 'close_time' cannot be equal.",
-  "schedule_err_close_less_open": "'close_time' time cannot be less than 'open_time' time.",
-  "schedule_err_break_equal": "fields 'break_start_time' and 'break_end_time' cannot be equal.",
-  "schedule_err_break_end_less_start": "'break_end_time' time cannot be less than 'break_start_time' time.",
-
-  "order_err_start_equal_end": "fields 'start_datetime' and 'end_datetime' cannot be equal.",
-  "order_err_end_less_start": "'end_datetime' time cannot be less than 'start_datetime' time",
-  "order_err_not_same_day": "'start_datetime' and 'end_datetime' datetime must have the same day",
-  "order_err_busy_time": "This time is already taken for tables = {}",
-  "time_inside_break": "The time range cannot be during the break time. In this case daily schedule = ({})",
-  "time_out_of_schedule": "The time range must be during the daily schedule. In this case daily schedule = ({})",
+  "passwords_not_equal": "Data of fields password and password_confirm must be equal",
 
   "decode_signature_fail": "Failed decrypting user data. Error = {}."
 }
