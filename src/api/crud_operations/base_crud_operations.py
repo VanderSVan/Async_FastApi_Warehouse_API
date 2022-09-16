@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.db.db_sqlalchemy import BaseModel
 from src.api.crud_operations.utils.base_crud_utils import QueryExecutor
-from src.utils.exceptions.crud.base import CRUDException
+from src.utils.exceptions.base import CRUDException
 
 
 @dataclass

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import NoReturn
 
-from src.utils.exceptions.schemas.user import SchemaUserException
+from src.utils.exceptions.user import UserException
 
 
 @dataclass
@@ -21,4 +21,4 @@ class UserPasswordValidator:
         password_confirm: str = self.password_data.get('password_confirm')
 
         if password != password_confirm:
-            SchemaUserException.raise_passwords_not_equal()
+            UserException.raise_passwords_not_equal()

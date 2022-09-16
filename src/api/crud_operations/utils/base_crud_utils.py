@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError, DBAPIError
 
-from src.utils.exceptions.crud.base import CRUDException
+from src.utils.exceptions.base import CRUDException
 
 
 @dataclass

@@ -2,14 +2,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends, status
 from fastapi.security import OAuth2PasswordBearer
 
+from src.config import get_settings
+from src.api.dependencies.db import get_db
 from src.api.models.user import UserModel
 from src.api.schemas.jwt.base_shemas import TokenSchema
 from src.api.crud_operations.user_auth import UserAuthOperation
 from src.utils.exceptions.base import JSONException
+from src.utils.exceptions.user import UserException
 from src.utils.response_generation.main import get_text
 from src.utils.auth.jwt import JWT
-from src.api.dependencies.db import get_db
-from src.config import get_settings
 
 setting = get_settings()
 api_url = setting.API_URL
@@ -58,10 +59,7 @@ async def get_current_admin(current_user: UserModel = Depends(get_current_user)
     If role is 'client' raises Forbidden exception.
     """
     match current_user.role:
-        case 'client':
-            raise JSONException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                message=get_text('forbidden_request')
-            )
-        case _:
+        case 'admin':
             return current_user
+        case _:
+            UserException.raise_forbidden_request()
