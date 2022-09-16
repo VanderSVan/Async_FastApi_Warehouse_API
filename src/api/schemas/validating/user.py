@@ -1,9 +1,7 @@
 from dataclasses import dataclass
 from typing import NoReturn
 
-from fastapi import status
-
-from src.utils.exceptions.base import JSONException
+from src.utils.exceptions.schemas.user import SchemaUserException
 
 
 @dataclass
@@ -23,7 +21,4 @@ class UserPasswordValidator:
         password_confirm: str = self.password_data.get('password_confirm')
 
         if password != password_confirm:
-            raise JSONException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                message="Data of fields password and password_confirm must be equal"
-            )
+            SchemaUserException.raise_passwords_not_equal()
