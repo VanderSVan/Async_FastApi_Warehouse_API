@@ -34,7 +34,7 @@ router = APIRouter(
 )
 
 
-@router.get('/me/', **asdict(UserAuthOutputGetCurrentUser()))
+@router.get('/me', **asdict(UserAuthOutputGetCurrentUser()))
 def get_current_user(user: UserAuthSwaggerGetUser = Depends()
                      ) -> UserModel:
     """Returns current user data."""
@@ -96,7 +96,7 @@ async def confirm_email(user: UserAuthSwaggerConfirmEmail = Depends()
     )
 
 
-@router.get('/reset-password/', **asdict(UserAuthOutputResetPassword()))
+@router.get('/reset-password', **asdict(UserAuthOutputResetPassword()))
 async def reset_password(user: UserAuthSwaggerResetPassword = Depends()
                          ) -> JSONResponse:
     """
