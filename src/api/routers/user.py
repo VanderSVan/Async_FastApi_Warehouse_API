@@ -19,9 +19,12 @@ from src.api.swagger.user import (
     UserOutputPost
 )
 from src.utils.response_generation.main import get_text
+from src.config import get_settings
+
+settings = get_settings()
 
 router = APIRouter(
-    prefix="/users",
+    prefix=f"{settings.users_router}",
     tags=["users"],
 )
 
@@ -84,7 +87,7 @@ async def patch_user(user: UserSwaggerPatch = Depends()
     )
 
 
-@router.post("/create/", **asdict(UserOutputPost()))
+@router.post("/create", **asdict(UserOutputPost()))
 async def add_user(user: UserSwaggerPost = Depends()
                    ) -> JSONResponse:
     """

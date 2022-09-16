@@ -29,7 +29,7 @@ from src.utils.auth.jwt import JWT
 settings = get_settings()
 
 router = APIRouter(
-    prefix="/users/auth",
+    prefix=f"{settings.users_auth_router}",
     tags=["users auth"],
 )
 

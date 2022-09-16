@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     # API
     API_URL: str = '/api/v1'
 
+    # Routers:
+    users_router: str = '/users'
+    users_auth_router: str = '/users/auth'
+
     # Database:
     PG_SUPER_DB: str = Field(..., env='PG_SUPER_DB')
     PG_SUPER_USER: str = Field(..., env='PG_SUPER_USER')
@@ -26,10 +30,10 @@ class Settings(BaseSettings):
 
     # Database for tests:
     TEST_DATABASE: dict = {
-        'role_name': 'test_role',
-        'username': 'test_user',
+        'role_name': 'warehouse_test_role',
+        'username': 'warehouse_test_user',
         'user_password': '1111',
-        'db_name': 'test_db'
+        'db_name': 'warehouse_test_db'
     }
 
     # Security:
@@ -91,7 +95,7 @@ class Settings(BaseSettings):
         :return: URL string.
         """
         return (
-            f"postgresql+psycopg2://"
+            f"postgresql+asyncpg://"
             f"{self.TEST_DATABASE['username']}:"
             f"{self.TEST_DATABASE['user_password']}@"
             f"{self.PG_HOST}:"
