@@ -2,7 +2,7 @@ import argparse
 
 from src.utils.db_populating.inserting_data_into_db import insert_data_to_db
 from src.utils.db_populating.input_data import users_json
-from src.db.db_sqlalchemy import engine, async_session
+from src.db.db_sqlalchemy import async_engine
 
 
 def create_arguments():
@@ -19,7 +19,7 @@ def create_arguments():
 
 
 async def main():
-    async with engine.begin() as conn:
+    async with async_engine.begin() as conn:
         await insert_data_to_db(
             users_json=users_json,
             session=conn
