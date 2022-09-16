@@ -5,7 +5,7 @@ from src.api.crud_operations.user import UserOperation
 from src.api.schemas.user.base_schemas import (UserPatchSchema,
                                                UserPostSchema,
                                                UserUpdatePasswordSchema)
-from src.utils.exceptions.crud.user import CRUDUserException
+from src.utils.exceptions.user import UserException
 from src.utils.auth.password_cryptograph import PasswordCryptographer
 from src.utils.celery.celery_tasks import send_email
 
@@ -15,7 +15,7 @@ class UserAuthOperation(UserOperation):
         user = await self.find_by_param_or_404('username', username)
 
         if not PasswordCryptographer.verify(password, user.hashed_password):
-            CRUDUserException.raise_not_authenticate()
+            UserException.raise_not_authenticate()
 
         return user
 
@@ -57,4 +57,4 @@ class UserAuthOperation(UserOperation):
     @staticmethod
     def _check_user_status(user: UserModel) -> NoReturn:
         if user.status == 'confirmed':
-            CRUDUserException.raise_email_already_confirmed(user)
+            UserException.raise_email_already_confirmed(user)
