@@ -13,7 +13,7 @@ from src.config import get_settings
 from src.db.db_sqlalchemy import async_engine, BaseModel
 from src.api.factory_app import create_app
 from src.utils.db_populating.inserting_data_into_db import insert_data_to_db
-from tests.functional_tests.test_data import users_json
+from tests.functional_tests.test_data import users_json, products_json
 
 
 setting = get_settings()
@@ -59,7 +59,8 @@ async def async_session() -> AsyncSession:
         async with async_engine.begin() as conn:
             await conn.run_sync(BaseModel.metadata.create_all)
             await insert_data_to_db(users_json=users_json,
-                                    session=conn)
+                                    products_json=products_json,
+                                    async_session=conn)
 
         yield s
 
