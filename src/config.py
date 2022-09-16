@@ -1,7 +1,7 @@
 from pathlib import Path
 from functools import lru_cache
 
-from pydantic import BaseSettings, Field
+from pydantic import BaseSettings, Field, EmailStr
 
 # Paths:
 api_dir = Path(__file__).parent
@@ -46,7 +46,7 @@ class Settings(BaseSettings):
     RESET_PASSWORD_URL: str = f'{FRONT_URL}' + '/reset-password/{}/'
     MAIL_USERNAME: str = Field(..., env='MAIL_USERNAME')
     MAIL_PASSWORD: str = Field(..., env='MAIL_PASSWORD')
-    MAIL_FROM: str = Field(..., env='MAIL_FROM')
+    MAIL_FROM: EmailStr = Field(..., env='MAIL_FROM')
     MAIL_PORT: int = Field(..., env='MAIL_PORT')
     MAIL_SERVER: str = Field(..., env='MAIL_SERVER')
     MAIL_FROM_NAME: str = Field(..., env='MAIL_FROM_NAME')
