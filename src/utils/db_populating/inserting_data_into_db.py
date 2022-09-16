@@ -13,6 +13,7 @@ from src.utils.color_logging.main import logger
 
 async def insert_data_to_db(users_json: list,
                             products_json: list,
+                            warehouse_groups_json: list,
                             async_session: AsyncSession
                             ) -> NoReturn:
     """Inserts prepared data into an empty database only!"""
@@ -21,7 +22,10 @@ async def insert_data_to_db(users_json: list,
     total_count = sum([user_count, product_count])
 
     if total_count == 0:
-        prepared_data: dict = prepare_data_for_insertion(users_json, products_json)
+        prepared_data: dict = prepare_data_for_insertion(users_json,
+                                                         products_json,
+                                                         warehouse_groups_json
+                                                         )
         await _insert_full_data_to_db(prepared_data, async_session)
         logger.success("Data has been added to db")
 
@@ -51,4 +55,3 @@ async def _insert_data_to_db(data: list,
                              ) -> NoReturn:
     insert_query = insert(model).values(data)
     await async_session.execute(insert_query)
-

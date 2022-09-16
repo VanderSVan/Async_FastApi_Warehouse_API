@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import ProgrammingError
 
-from src.api.routers import product, user, users_auth
+from src.api.routers import user, users_auth, product, warehouse_group
 
 
 from src.utils.exceptions.base import JSONException
@@ -25,6 +25,7 @@ def create_app(with_logger: bool = True):
     application.include_router(users_auth.router, prefix=api_url)
     application.include_router(user.router, prefix=api_url)
     application.include_router(product.router, prefix=api_url)
+    application.include_router(warehouse_group.router, prefix=api_url)
 
     # Exception handlers
     @application.exception_handler(JSONException)

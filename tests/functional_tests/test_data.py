@@ -1,5 +1,3 @@
-# !!!!!!!!! DON'T CHANGE THESE DATA !!!!!!!!!
-
 users_json: list = [
     {
         "username": "admin",
@@ -42,5 +40,20 @@ products_json: list = [
     {
         "id": 3,
         "name": "t-shirt"
+    }
+]
+
+warehouse_groups_json: list = [
+    {
+        "id": 1,
+        "name": "ozon"
+    },
+    {
+        "id": 2,
+        "name": "wildberries"
+    },
+    {
+        "id": 3,
+        "name": "yandex-market"
     }
 ]

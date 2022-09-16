@@ -42,3 +42,18 @@ products_json: list = [
         "name": "t-shirt"
     }
 ]
+
+warehouse_groups_json: list = [
+    {
+        "id": 1,
+        "name": "ozon"
+    },
+    {
+        "id": 2,
+        "name": "wildberries"
+    },
+    {
+        "id": 3,
+        "name": "yandex-market"
+    }
+]
