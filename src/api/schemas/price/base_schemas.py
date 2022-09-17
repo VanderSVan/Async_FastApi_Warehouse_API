@@ -12,6 +12,7 @@ class PriceBaseSchema(BaseModel):
 
 class PriceGetSchema(PriceBaseSchema):
     id: int
+    price: float = Field(..., example=5000.00)
 
     class Config:
         orm_mode = True
