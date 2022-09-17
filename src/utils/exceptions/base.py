@@ -55,18 +55,6 @@ class CRUDException:
         )
 
     @staticmethod
-    def raise_already_exists(model_name: str, param_name: str, param_value: Any) -> NoReturn:
-        """
-        If there is object with the given parameter in the db, then raises the error.
-        """
-        raise JSONException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            message=get_text('exists').format(model_name,
-                                              param_name,
-                                              param_value)
-        )
-
-    @staticmethod
     def raise_no_patch_data() -> NoReturn:
         raise JSONException(
             status_code=status.HTTP_400_BAD_REQUEST,

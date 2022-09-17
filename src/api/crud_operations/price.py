@@ -7,7 +7,8 @@ from src.api.models.price import PriceModel
 from src.api.crud_operations.utils.base_crud_utils import QueryExecutor
 
 
-from src.api.crud_operations.utils.price import check_input_price_data
+from src.api.crud_operations.utils.price import (check_input_price_data_for_patch,
+                                                 check_input_price_data_for_post)
 
 
 class PriceOperation(ModelOperation):
@@ -48,7 +49,7 @@ class PriceOperation(ModelOperation):
         )
         return await QueryExecutor.get_multiple_result(query, self.db)
 
-    @check_input_price_data
+    @check_input_price_data_for_patch
     async def patch_obj(self, new_data: PricePatchSchema, id_: int) -> bool:
         """
         Updates price values into db with new data;
@@ -56,14 +57,13 @@ class PriceOperation(ModelOperation):
         :param new_data: new data to update.
         :return: True or raise exception if price is not found.
         """
-        await self.find_by_id_or_404(id_)
         query = (update(self.model)
                  .where(self.model.id == id_)
                  .values(**new_data.dict(exclude_unset=True))
                  )
         return await QueryExecutor.patch_obj(query, self.db, self.model_name)
 
-    @check_input_price_data
+    @check_input_price_data_for_post
     async def add_obj(self, new_data: PricePostSchema) -> bool:
         """
         Adds new price into db;

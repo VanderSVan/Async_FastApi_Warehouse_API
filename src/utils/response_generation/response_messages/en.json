@@ -4,7 +4,6 @@
   "delete": "{} with id={} was successfully deleted.",
   "not_found": "{} with id={} not found.",
   "param_not_found": "{} with {}={} not found.",
-  "exists": "This {} with this {} parameter already exists.",
   "duplicate": "The {} is already stored in the database.",
   "err_patch": "Only '{}' and '{}' fields are available in the 'PATCH' method, but was given '{}' field.",
   "err_patch_no_data": "No data to update, check available fields.",

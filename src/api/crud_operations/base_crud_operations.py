@@ -95,7 +95,7 @@ class ModelOperation:
         found_obj: BaseModel | None = await self.find_by_param(param_name, param_value)
 
         if found_obj:
-            CRUDException.raise_already_exists(self.model_name, param_name, param_value)
+            CRUDException.raise_duplicate_err(self.model_name)
 
         return found_obj
 

@@ -8,7 +8,7 @@ class PriceModel(BaseModel):
 
     id = Column(Integer, primary_key=True)
     price = Column(Numeric(scale=2))
-    datetime = Column(DateTime, unique=True)
+    datetime = Column(DateTime)
 
     product_id = Column(
         Integer, ForeignKey('products.id',
