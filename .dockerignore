@@ -1,0 +1,12 @@
+.idea
+/.env
+/gg.py
+/src/utils/color_logging/logs/
+/.pytest_cache/
+/tests/functional_tests/routers/.pytest_cache/
+.gitignore
+README.md
+/docker/docker-compose.base.yml
+/docker/docker-compose.dev.yml
+/docker/docker-compose.prod.yml
+/docker/Dockerfile

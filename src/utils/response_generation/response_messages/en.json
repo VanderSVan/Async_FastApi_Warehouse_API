@@ -1,0 +1,24 @@
+{
+  "post": "new {} was successfully created.",
+  "patch": "{} with id={} was successfully updated.",
+  "delete": "{} with id={} was successfully deleted.",
+  "not_found": "{} with id={} not found.",
+  "param_not_found": "{} with {}={} not found.",
+  "exists": "{} id={} already exists.",
+  "duplicate": "The {} is already stored in the database.",
+  "err_patch": "Only '{}' and '{}' fields are available in the 'PATCH' method, but was given '{}' field.",
+  "err_patch_no_data": "No data to update, check available fields.",
+  "err_500": "Server side error.",
+
+  "registration_email": "E-mail has been sent to your email address.",
+  "email_confirmed": "E-mail has been successfully confirmed.",
+  "email_not_confirmed": "First confirm your email address.",
+  "email_already_confirmed": "User = '{}' has already confirmed their e-mail address.",
+  "authenticate_failed": "login or password is not correct.",
+  "forbidden_request": "Access is denied.",
+  "reset_password": "A password reset email has been sent to your email",
+  "changed_password": "Password has been successfully changed.",
+  "passwords_not_equal": "Data of fields password and password_confirm must be equal",
+
+  "decode_signature_fail": "Failed decrypting user data. Error = {}."
+}

@@ -1,0 +1,73 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: "warehouse-backend-dev"
+    restart: always
+    build:
+      context: ..
+      target: development
+      dockerfile: ./docker/Dockerfile
+    depends_on:
+      - postgresql_db
+    environment:
+      PG_HOST: "postgresql_db"
+    entrypoint: /docker-entrypoint.sh
+    command: bash -c "uvicorn src.api.app:app --host=0.0.0.0 --port=9000 --reload"
+    volumes:
+      - ..:/app
+    ports:
+      - '9000:9000'
+    networks:
+      - warehouse_network
+    env_file:
+      - ../.env
+
+  pgadmin:
+    container_name: "warehouse-pgadmin4-dev"
+    image: dpage/pgadmin4:6.8
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - '5050:80'
+    networks:
+      - warehouse_network
+    depends_on:
+      - postgresql_db
+
+  celery_worker:
+    container_name: "warehouse-celery-dev"
+    restart: always
+    build:
+      context: ..
+      target: development
+      dockerfile: ./docker/Dockerfile
+    depends_on:
+      - backend
+      - redis
+    command: python -m celery -A src.utils.celery.celery_config worker -l DEBUG --logfile=src/utils/color_logging/logs/celery_dev.log
+    networks:
+      - warehouse_network
+    env_file:
+      - ../.env
+
+  flower:
+    container_name: "warehouse-flower-dev"
+    restart: always
+    build:
+      context: ..
+      target: development
+      dockerfile: ./docker/Dockerfile
+    depends_on:
+      - backend
+      - redis
+      - celery_worker
+    command: python -m celery -A src.utils.celery.celery_config flower --url_prefix=flower --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
+    ports:
+      - '5555:5555'
+    networks:
+      - warehouse_network
+    env_file:
+      - ../.env
