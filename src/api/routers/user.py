@@ -48,7 +48,7 @@ async def get_user(user: UserSwaggerGet = Depends()
     Only available to admins.
     """
     crud = UserOperation(user.db)
-    return await crud.find_by_id_or_404(user.user_id)
+    return await crud.find_by_id(user.user_id)
 
 
 @router.delete("/{user_id}", **asdict(UserOutputDelete()))

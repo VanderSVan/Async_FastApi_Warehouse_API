@@ -49,7 +49,7 @@ async def get_product(product: ProductSwaggerGet = Depends()) -> ProductModel | 
     Only available to admins.
     """
     crud = ProductOperation(product.db)
-    return await crud.find_by_id_or_404(product.product_id)
+    return await crud.find_by_id(product.product_id)
 
 
 @router.delete("/{product_id}", **asdict(ProductOutputDelete()))

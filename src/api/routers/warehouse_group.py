@@ -49,7 +49,7 @@ async def get_warehouse_group(warehouse_group: WarehouseGroupSwaggerGet = Depend
     Only available to admins.
     """
     crud = WarehouseGroupOperation(warehouse_group.db)
-    return await crud.find_by_id_or_404(warehouse_group.warehouse_group_id)
+    return await crud.find_by_id(warehouse_group.warehouse_group_id)
 
 
 @router.delete("/{warehouse_group_id}", **asdict(WarehouseGroupOutputDelete()))
