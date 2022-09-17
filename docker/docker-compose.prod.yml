@@ -15,13 +15,27 @@ services:
     entrypoint: /docker-entrypoint.sh
     command: bash -c "uvicorn src.api.app:app --host=0.0.0.0 --port=9000"
     volumes:
-      - restaurant-backend:/usr/src/app
+      - warehouse-backend:/usr/src/app
     expose:
       - '9000'
     networks:
-      - restaurant_network
+      - warehouse_network
     env_file:
       - ../.env
+
+  pgadmin:
+    container_name: "warehouse-pgadmin4"
+    image: dpage/pgadmin4:6.8
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    expose:
+      - '5050'
+    networks:
+      - warehouse_network
+    depends_on:
+      - postgresql_db
 
   celery_worker:
     container_name: "warehouse-celery"
@@ -35,7 +49,7 @@ services:
       - redis
     command: python -m celery -A src.utils.celery.celery_config worker -l WARNING --logfile=src/utils/color_logging/logs/celery.log
     networks:
-      - restaurant_network
+      - warehouse_network
     env_file:
       - ../.env
 
@@ -54,9 +68,9 @@ services:
     expose:
       - '5555'
     networks:
-      - restaurant_network
+      - warehouse_network
     env_file:
       - ../.env
 
 volumes:
-  restaurant-backend:
+  warehouse-backend:

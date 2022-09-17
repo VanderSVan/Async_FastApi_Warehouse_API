@@ -9,27 +9,13 @@ services:
       POSTGRES_USER: ${PG_SUPER_USER}
       POSTGRES_PASSWORD: ${PG_SUPER_PASSWORD}
     volumes:
-      - restaurant-db:/var/lib/postgresql/data
+      - warehouse-db:/var/lib/postgresql/data
     expose:
       - ${PG_PORT}
     networks:
-      - restaurant_network
+      - warehouse_network
     env_file:
       - ../.env
-
-  pgadmin:
-    container_name: pgadmin4_container
-    image: dpage/pgadmin4:6.8
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    ports:
-      - '5050:80'
-    networks:
-      - restaurant_network
-    depends_on:
-      - postgresql_db
 
   redis:
     container_name: "warehouse-redis"
@@ -41,7 +27,7 @@ services:
     expose:
       - ${REDIS_PORT}
     networks:
-      - restaurant_network
+      - warehouse_network
 
   nginx:
     container_name: "warehouse-nginx"
@@ -58,11 +44,11 @@ services:
     ports:
       - '8080:80'
     networks:
-      - restaurant_network
+      - warehouse_network
 
 networks:
-  restaurant_network:
+  warehouse_network:
     driver: bridge
 
 volumes:
-  restaurant-db:
+  warehouse-db:

@@ -16,33 +16,35 @@ ENV PYTHONUNBUFFERED=1 \
     PYSETUP_PATH="/opt/pysetup" \
     VENV_PATH="/opt/pysetup/.venv"
 
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
-
 
 # -----------------------------------------------------------
 # 'PIP-POETRY-BASE' stage is used to install pip and poetry only
 FROM python-base as pip-poetry-base
+
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         curl \
         build-essential
 
 # Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION>=1.1.0
+ENV POETRY_VERSION=1.2.0
 RUN curl -sSL https://install.python-poetry.org | python3 -
-
 
 # We copy our Poetry requirements here to cache them
 WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
 
 # And create requirements.txt file for production mode
-RUN poetry export --without-hashes --format=requirements.txt > requirements.txt
+RUN poetry export --without-hashes  -f requirements.txt -o requirements.txt
 
 
 # -----------------------------------------------------------
 # 'POETRY-BASE' stage is used to build dependencies for development mode
 FROM python-base as poetry-base
+
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 WORKDIR $PYSETUP_PATH
 # Copying poetry and venv into image
@@ -56,7 +58,8 @@ RUN poetry install
 # -----------------------------------------------------------
 # 'DEVELOPMENT' stage installs all dev deps and can be used to develop code.
 FROM python-base as development
-ENV FASTAPI_ENV=development
+ENV FASTAPI_ENV=development \
+    PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 # Copying poetry and venv into image
 COPY --from=poetry-base $POETRY_HOME $POETRY_HOME

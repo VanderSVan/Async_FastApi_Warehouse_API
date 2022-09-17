@@ -19,9 +19,23 @@ services:
     ports:
       - '9000:9000'
     networks:
-      - restaurant_network
+      - warehouse_network
     env_file:
       - ../.env
+
+  pgadmin:
+    container_name: "warehouse-pgadmin4-dev"
+    image: dpage/pgadmin4:6.8
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - '5050:80'
+    networks:
+      - warehouse_network
+    depends_on:
+      - postgresql_db
 
   celery_worker:
     container_name: "warehouse-celery-dev"
@@ -35,7 +49,7 @@ services:
       - redis
     command: python -m celery -A src.utils.celery.celery_config worker -l DEBUG --logfile=src/utils/color_logging/logs/celery_dev.log
     networks:
-      - restaurant_network
+      - warehouse_network
     env_file:
       - ../.env
 
@@ -54,6 +68,6 @@ services:
     ports:
       - '5555:5555'
     networks:
-      - restaurant_network
+      - warehouse_network
     env_file:
       - ../.env
