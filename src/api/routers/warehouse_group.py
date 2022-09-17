@@ -1,7 +1,7 @@
 from dataclasses import asdict
 
 from fastapi import APIRouter, Depends, status
-from fastapi.responses import JSONResponse
+from fastapi.responses import ORJSONResponse
 
 from src.api.models.warehouse_group import WarehouseGroupModel
 from src.api.swagger.warehouse_group import (
@@ -53,7 +53,7 @@ async def get_warehouse_group(warehouse_group: WarehouseGroupSwaggerGet = Depend
 
 
 @router.delete("/{warehouse_group_id}", **asdict(WarehouseGroupOutputDelete()))
-async def delete_warehouse_group(warehouse_group: WarehouseGroupSwaggerDelete = Depends()) -> JSONResponse:
+async def delete_warehouse_group(warehouse_group: WarehouseGroupSwaggerDelete = Depends()) -> ORJSONResponse:
     """
     Deletes warehouse group from db by warehouse group id.
     Only available to admins.
@@ -61,7 +61,7 @@ async def delete_warehouse_group(warehouse_group: WarehouseGroupSwaggerDelete = 
     crud = WarehouseGroupOperation(warehouse_group.db)
     await crud.delete_obj(warehouse_group.warehouse_group_id)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_200_OK,
         content={
             "message": get_text('delete').format(crud.model_name, warehouse_group.warehouse_group_id)
@@ -70,7 +70,7 @@ async def delete_warehouse_group(warehouse_group: WarehouseGroupSwaggerDelete = 
 
 
 @router.patch("/{warehouse_group_id}", **asdict(WarehouseGroupOutputPatch()))
-async def patch_warehouse_group(warehouse_group: WarehouseGroupSwaggerPatch = Depends()) -> JSONResponse:
+async def patch_warehouse_group(warehouse_group: WarehouseGroupSwaggerPatch = Depends()) -> ORJSONResponse:
     """
     Updates warehouse group data.
     Only available to admins.
@@ -78,7 +78,7 @@ async def patch_warehouse_group(warehouse_group: WarehouseGroupSwaggerPatch = De
     crud = WarehouseGroupOperation(warehouse_group.db)
     await crud.patch_obj(warehouse_group.warehouse_group_id, warehouse_group.data)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_200_OK,
         content={
             "message": get_text('patch').format(crud.model_name, warehouse_group.warehouse_group_id)
@@ -87,7 +87,7 @@ async def patch_warehouse_group(warehouse_group: WarehouseGroupSwaggerPatch = De
 
 
 @router.post("/create", **asdict(WarehouseGroupOutputPost()))
-async def add_warehouse_group(warehouse_group: WarehouseGroupSwaggerPost = Depends()) -> JSONResponse:
+async def add_warehouse_group(warehouse_group: WarehouseGroupSwaggerPost = Depends()) -> ORJSONResponse:
     """
     Adds new warehouse group into db.
     Only available to admins.
@@ -95,7 +95,7 @@ async def add_warehouse_group(warehouse_group: WarehouseGroupSwaggerPost = Depen
     crud = WarehouseGroupOperation(warehouse_group.db)
     await crud.add_obj(warehouse_group.data)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_201_CREATED,
         content={
             "message": get_text('post').format(crud.model_name)

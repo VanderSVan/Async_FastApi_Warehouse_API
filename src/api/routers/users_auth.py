@@ -2,7 +2,7 @@ from datetime import timedelta as td
 from dataclasses import asdict
 
 from fastapi import APIRouter, Depends, status
-from fastapi.responses import JSONResponse
+from fastapi.responses import ORJSONResponse
 
 from src.config import get_settings
 from src.api.models.user import UserModel
@@ -60,7 +60,7 @@ async def create_token(user: UserAuthSwaggerCreateToken = Depends()
 
 @router.post("/register", **asdict(UserAuthOutputRegister()))
 async def register_user(user: UserAuthSwaggerRegisterUser = Depends()
-                        ) -> JSONResponse:
+                        ) -> ORJSONResponse:
     """
     Gets new user data and saves it into db.
     It then sends an email to the user to confirm the password;
@@ -72,7 +72,7 @@ async def register_user(user: UserAuthSwaggerRegisterUser = Depends()
     await crud.add_obj(user.data)
     crud.send_user_registration_email(user.data)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_200_OK,
         content={"message": get_text('registration_email')}
     )
@@ -80,7 +80,7 @@ async def register_user(user: UserAuthSwaggerRegisterUser = Depends()
 
 @router.get('/confirm-email/{sign}/', **asdict(UserAuthOutputConfirmEmail()))
 async def confirm_email(user: UserAuthSwaggerConfirmEmail = Depends()
-                        ) -> JSONResponse:
+                        ) -> ORJSONResponse:
     """
     Request to confirm the user’s email;
     """
@@ -90,7 +90,7 @@ async def confirm_email(user: UserAuthSwaggerConfirmEmail = Depends()
     crud = UserAuthOperation(user.db)
     await crud.confirm_user_email(username)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_200_OK,
         content={"message": get_text('email_confirmed')}
     )
@@ -98,7 +98,7 @@ async def confirm_email(user: UserAuthSwaggerConfirmEmail = Depends()
 
 @router.get('/reset-password', **asdict(UserAuthOutputResetPassword()))
 async def reset_password(user: UserAuthSwaggerResetPassword = Depends()
-                         ) -> JSONResponse:
+                         ) -> ORJSONResponse:
     """
     Request to reset the user’s password.
     The user must be in authenticated status else he cannot access this endpoint.
@@ -109,7 +109,7 @@ async def reset_password(user: UserAuthSwaggerResetPassword = Depends()
     await crud.find_by_id_or_404(user.current_confirmed_user.id)
     crud.send_password_reset_email(user.current_confirmed_user)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_200_OK,
         content={"message": get_text('reset_password')}
     )
@@ -127,7 +127,7 @@ async def confirm_reset_password(user: UserAuthSwaggerConfirmResetPassword = Dep
     crud = UserAuthOperation(user.db)
     await crud.confirm_reset_password(username, user.new_password_data.password)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_200_OK,
         content={"message": get_text('changed_password')}
     )

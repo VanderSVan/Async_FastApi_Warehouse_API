@@ -1,7 +1,7 @@
 from dataclasses import asdict
 
 from fastapi import APIRouter, Depends, status
-from fastapi.responses import JSONResponse
+from fastapi.responses import ORJSONResponse
 
 from src.api.models.product import ProductModel
 from src.api.swagger.product import (
@@ -53,7 +53,7 @@ async def get_product(product: ProductSwaggerGet = Depends()) -> ProductModel | 
 
 
 @router.delete("/{product_id}", **asdict(ProductOutputDelete()))
-async def delete_product(product: ProductSwaggerDelete = Depends()) -> JSONResponse:
+async def delete_product(product: ProductSwaggerDelete = Depends()) -> ORJSONResponse:
     """
     Deletes product from db by product id.
     Only available to admins.
@@ -61,7 +61,7 @@ async def delete_product(product: ProductSwaggerDelete = Depends()) -> JSONRespo
     crud = ProductOperation(product.db)
     await crud.delete_obj(product.product_id)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_200_OK,
         content={
             "message": get_text('delete').format(crud.model_name, product.product_id)
@@ -70,7 +70,7 @@ async def delete_product(product: ProductSwaggerDelete = Depends()) -> JSONRespo
 
 
 @router.patch("/{product_id}", **asdict(ProductOutputPatch()))
-async def patch_product(product: ProductSwaggerPatch = Depends()) -> JSONResponse:
+async def patch_product(product: ProductSwaggerPatch = Depends()) -> ORJSONResponse:
     """
     Updates product data.
     Only available to admins.
@@ -78,7 +78,7 @@ async def patch_product(product: ProductSwaggerPatch = Depends()) -> JSONRespons
     crud = ProductOperation(product.db)
     await crud.patch_obj(product.product_id, product.data)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_200_OK,
         content={
             "message": get_text('patch').format(crud.model_name, product.product_id)
@@ -87,7 +87,7 @@ async def patch_product(product: ProductSwaggerPatch = Depends()) -> JSONRespons
 
 
 @router.post("/create", **asdict(ProductOutputPost()))
-async def add_product(product: ProductSwaggerPost = Depends()) -> JSONResponse:
+async def add_product(product: ProductSwaggerPost = Depends()) -> ORJSONResponse:
     """
     Adds new product into db.
     Only available to admins.
@@ -95,7 +95,7 @@ async def add_product(product: ProductSwaggerPost = Depends()) -> JSONResponse:
     crud = ProductOperation(product.db)
     await crud.add_obj(product.data)
 
-    return JSONResponse(
+    return ORJSONResponse(
         status_code=status.HTTP_201_CREATED,
         content={
             "message": get_text('post').format(crud.model_name)
