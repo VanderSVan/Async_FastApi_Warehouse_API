@@ -26,7 +26,7 @@ def check_input_price_data_for_patch(func):
 
         await check_product_existence(merged_data.product_id, self.db)
         await check_warehouse_group_existence(merged_data.warehouse_group_id, self.db)
-        await check_price_duplicate(self, merged_data)
+        await _check_price_duplicate(self, merged_data)
 
         return await func(self, new_data, id_, *args, **kwargs)
 
@@ -45,16 +45,16 @@ def check_input_price_data_for_post(func):
         """
         await check_product_existence(new_data.product_id, self.db)
         await check_warehouse_group_existence(new_data.warehouse_group_id, self.db)
-        await check_price_duplicate(self, new_data)
+        await _check_price_duplicate(self, new_data)
 
         return await func(self, new_data, *args, **kwargs)
 
     return wrapper
 
 
-async def check_price_duplicate(self,
-                                new_data: PricePatchSchema | PricePostSchema
-                                ) -> NoReturn:
+async def _check_price_duplicate(self,
+                                 new_data: PricePatchSchema | PricePostSchema
+                                 ) -> NoReturn:
     duplicate: PriceModel | None = await self.find_by_param('datetime', new_data.datetime)
     if (
             duplicate and

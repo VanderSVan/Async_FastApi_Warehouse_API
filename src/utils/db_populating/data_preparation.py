@@ -46,9 +46,10 @@ def encode_user_passwords(users: list[dict]):
 
 
 def process_dt_objects(data: list[dict]) -> list[dict]:
-    return [process_single_dt_objects(obj) for obj in data]
+    return [process_single_dt_object(obj) for obj in data]
 
 
-def process_single_dt_objects(obj_dt: dict) -> dict:
-    obj_dt['datetime'] = dt.strptime(obj_dt['datetime'], '%Y-%m-%dT%H:%M:%S')
+def process_single_dt_object(obj_dt: dict) -> dict:
+    if isinstance(obj_dt.get('datetime'), str):
+        obj_dt['datetime'] = dt.strptime(obj_dt['datetime'], '%Y-%m-%dT%H:%M:%S')
     return obj_dt
