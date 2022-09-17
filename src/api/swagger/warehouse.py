@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Literal, Optional, Type, Any
+from typing import Optional, Type, Any
 
 from fastapi import Query, Path, Body, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
