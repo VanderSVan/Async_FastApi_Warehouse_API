@@ -61,7 +61,7 @@ class WarehouseGroupOutputGetAll:
         "**Returns** all warehouse groups from db by **parameters**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = list[WarehouseGroupGetSchema]
+    response_model: Optional[Type[Any]] = list[WarehouseGroupGetSchema] | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'List of warehouse groups'
 
@@ -73,7 +73,7 @@ class WarehouseGroupOutputGet:
         "**Returns** warehouse group from db by **warehouse group id**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = WarehouseGroupGetSchema
+    response_model: Optional[Type[Any]] = WarehouseGroupGetSchema | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'WarehouseGroup data'
 

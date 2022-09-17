@@ -61,7 +61,7 @@ class ProductOutputGetAll:
         "**Returns** all products from db by **parameters**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = list[ProductGetSchema]
+    response_model: Optional[Type[Any]] = list[ProductGetSchema] | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'List of products'
     
@@ -73,7 +73,7 @@ class ProductOutputGet:
         "**Returns** product from db by **product id**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = ProductGetSchema
+    response_model: Optional[Type[Any]] = ProductGetSchema | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'Product data'
 

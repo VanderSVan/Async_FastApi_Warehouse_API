@@ -66,7 +66,7 @@ class WarehouseOutputGetAll:
         "**Returns** all warehouse from db by **parameters**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = list[WarehouseGetSchema]
+    response_model: Optional[Type[Any]] = list[WarehouseGetSchema] | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'List of warehouse'
 
