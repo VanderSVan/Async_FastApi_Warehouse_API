@@ -75,3 +75,69 @@ warehouses_json: list = [
         "warehouse_group_id": 1
     }
 ]
+
+prices_json: list = [
+    {
+        "id": 1,
+        "price": 11111.11,
+        "datetime": "2022-11-11T11:11:11",
+        "product_id": 1,
+        "warehouse_group_id": 1
+    },
+    {
+        "id": 2,
+        "price": 100.10,
+        "datetime": "2022-09-17T10:10:00",
+        "product_id": 1,
+        "warehouse_group_id": 2
+    },
+    {
+        "id": 3,
+        "price": 2500.50,
+        "datetime": "2022-09-17T10:10:00",
+        "product_id": 2,
+        "warehouse_group_id": 2
+    },
+    {
+        "id": 4,
+        "price": 4500.15,
+        "datetime": "2022-09-20T10:10:00",
+        "product_id": 2,
+        "warehouse_group_id": 2
+    },
+    {
+        "id": 5,
+        "price": 1500,
+        "datetime": "2022-09-17T10:10:00",
+        "product_id": 2,
+        "warehouse_group_id": 3
+    },
+    {
+        "id": 6,
+        "price": 500,
+        "datetime": "2022-09-17T10:10:00",
+        "product_id": 3,
+        "warehouse_group_id": 3
+    },
+    {
+        "id": 7,
+        "price": 600,
+        "datetime": "2022-09-17T10:10:00",
+        "product_id": 3,
+        "warehouse_group_id": 1
+    },
+    {
+        "id": 8,
+        "price": 700,
+        "datetime": "2022-09-17T10:10:00",
+        "product_id": 3,
+        "warehouse_group_id": 2
+    },
+    {
+        "id": 9,
+        "price": 1500,
+        "datetime": "2022-09-20T10:10:00",
+        "product_id": 3,
+        "warehouse_group_id": 3
+    },
+]
