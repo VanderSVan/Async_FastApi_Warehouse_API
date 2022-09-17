@@ -13,7 +13,8 @@ def check_input_warehouse_data(func):
         """
         Checks input data for patch and post `warehouse` object.
         """
-        if hasattr(new_data, 'warehouse_group_id'):
+        clean_data: dict = new_data.dict(exclude_unset=True)
+        if clean_data.get('warehouse_group_id'):
             await check_warehouse_group_existence(
                 new_data.warehouse_group_id,
                 self.db
