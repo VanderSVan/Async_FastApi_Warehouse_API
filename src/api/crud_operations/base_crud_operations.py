@@ -29,12 +29,16 @@ class ModelOperation:
 
         return max_id
 
-    async def find_all(self) -> list[BaseModel]:
+    async def find_all(self, limit: int, offset: int) -> list[BaseModel]:
         """
         Finds all objects in the db.
         :return: objects list or an empty list if no objects were found.
         """
-        query = select(self.model).order_by(asc(self.model.id))
+        query = (select(self.model)
+                 .order_by(asc(self.model.id))
+                 .offset(offset)
+                 .limit(limit)
+                 )
         return await QueryExecutor.get_multiple_result(query, self.db)
 
     async def find_by_id(self, id_: int) -> BaseModel | None:

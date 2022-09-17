@@ -39,7 +39,7 @@ async def get_all_warehouse_groups(warehouse_group: WarehouseGroupSwaggerGetAll 
         warehouse_group: WarehouseGroupModel = await crud.find_by_param_or_404('name', warehouse_group.name.lower())
         return [warehouse_group]
 
-    return await crud.find_all()
+    return await crud.find_all(offset=warehouse_group.offset, limit=warehouse_group.limit)
 
 
 @router.get("/{warehouse_group_id}", **asdict(WarehouseGroupOutputGet()))

@@ -19,6 +19,8 @@ from src.api.dependencies.auth import (get_current_admin,
 @dataclass
 class ProductSwaggerGetAll:
     name: str = Query(default=None, description='Product name')
+    offset: int = Query(default=None, description='How far to offset')
+    limit: int = Query(default=None, description='How many limit')
     current_confirmed_user: UserModel = Depends(get_current_confirmed_user)
     db: AsyncSession = Depends(get_db)
 

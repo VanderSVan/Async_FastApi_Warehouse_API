@@ -39,7 +39,7 @@ async def get_all_products(product: ProductSwaggerGetAll = Depends()) -> list[Pr
         product: ProductModel = await crud.find_by_param_or_404('name', product.name.lower())
         return [product]
 
-    return await crud.find_all()
+    return await crud.find_all(offset=product.offset, limit=product.limit)
 
 
 @router.get("/{product_id}", **asdict(ProductOutputGet()))

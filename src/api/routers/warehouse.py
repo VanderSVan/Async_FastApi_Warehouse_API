@@ -36,7 +36,9 @@ async def get_all_warehouses(warehouse: WarehouseInterfaceGetAll = Depends()
     """
     crud = WarehouseOperation(warehouse.db)
     return await crud.find_all_by_params(name=warehouse.name,
-                                         warehouse_group_id=warehouse.warehouse_group_id)
+                                         warehouse_group_id=warehouse.warehouse_group_id,
+                                         offset=warehouse.offset,
+                                         limit=warehouse.limit)
 
 
 @router.get("/{warehouse_id}", **asdict(WarehouseOutputGet()))

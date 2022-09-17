@@ -22,6 +22,8 @@ class WarehouseOperation(ModelOperation):
         """
         name = kwargs.get('name')
         warehouse_group_id = kwargs.get('warehouse_group_id')
+        offset = kwargs.get('offset')
+        limit = kwargs.get('limit')
         query = (
             select(self.model)
             .where(
@@ -32,7 +34,10 @@ class WarehouseOperation(ModelOperation):
                      if warehouse_group_id is not None else True)
                 )
             )
-            .order_by(asc(self.model.id)))
+            .order_by(asc(self.model.id))
+            .offset(offset)
+            .limit(limit)
+        )
         return await QueryExecutor.get_multiple_result(query, self.db)
 
     @check_input_warehouse_data
