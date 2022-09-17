@@ -57,21 +57,3 @@ warehouse_groups_json: list = [
         "name": "yandex-market"
     }
 ]
-
-warehouses_json: list = [
-    {
-        "id": 1,
-        "name": "number-1",
-        "warehouse_group_id": 3
-    },
-    {
-        "id": 2,
-        "name": "number-2",
-        "warehouse_group_id": 2
-    },
-    {
-        "id": 3,
-        "name": "number-3",
-        "warehouse_group_id": 1
-    }
-]
