@@ -2,18 +2,21 @@ from src.utils.auth.password_cryptograph import PasswordCryptographer
 from src.api.models.user import UserModel
 from src.api.models.product import ProductModel
 from src.api.models.warehouse_group import WarehouseGroupModel
+from src.api.models.warehouse import WarehouseModel
 
 
 def prepare_data_for_insertion(users: list,
                                products: list,
-                               warehouse_groups: list
+                               warehouse_groups: list,
+                               warehouses: list
                                ) -> dict:
     """Main function."""
     users: list[dict] = encode_user_passwords(users)
     return {
         UserModel: users,
         ProductModel: products,
-        WarehouseGroupModel: warehouse_groups
+        WarehouseGroupModel: warehouse_groups,
+        WarehouseModel: warehouses
     }
 
 

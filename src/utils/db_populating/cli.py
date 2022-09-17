@@ -1,9 +1,6 @@
 import argparse
 
 from src.utils.db_populating.inserting_data_into_db import insert_data_to_db
-from src.utils.db_populating.input_data import (users_json,
-                                                products_json,
-                                                warehouse_groups_json)
 from src.db.db_sqlalchemy import async_engine
 
 
@@ -22,9 +19,4 @@ def create_arguments():
 
 async def main():
     async with async_engine.begin() as conn:
-        await insert_data_to_db(
-            users_json=users_json,
-            products_json=products_json,
-            warehouse_groups_json=warehouse_groups_json,
-            async_session=conn
-        )
+        await insert_data_to_db(conn)

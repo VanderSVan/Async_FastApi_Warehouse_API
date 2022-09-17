@@ -9,13 +9,13 @@ from src.api.models.user import UserModel
 from src.api.models.product import ProductModel
 from src.utils.db_populating.data_preparation import prepare_data_for_insertion
 from src.utils.color_logging.main import logger
+from src.utils.db_populating.input_data import (users_json,
+                                                products_json,
+                                                warehouse_groups_json,
+                                                warehouses_json)
 
 
-async def insert_data_to_db(users_json: list,
-                            products_json: list,
-                            warehouse_groups_json: list,
-                            async_session: AsyncSession
-                            ) -> NoReturn:
+async def insert_data_to_db(async_session: AsyncSession) -> NoReturn:
     """Inserts prepared data into an empty database only!"""
     user_count: int = await _get_count(UserModel, async_session)
     product_count: int = await _get_count(ProductModel, async_session)
@@ -24,7 +24,8 @@ async def insert_data_to_db(users_json: list,
     if total_count == 0:
         prepared_data: dict = prepare_data_for_insertion(users_json,
                                                          products_json,
-                                                         warehouse_groups_json
+                                                         warehouse_groups_json,
+                                                         warehouses_json
                                                          )
         await _insert_full_data_to_db(prepared_data, async_session)
         logger.success("Data has been added to db")
