@@ -86,6 +86,19 @@ class ModelOperation:
 
         return found_obj
 
+    async def raise_err_if_exists(self, param_name: str, param_value: Any) -> None:
+        """
+        Finds the object by the given parameter,
+        if there is such object, then raises an error.
+        :return: None or raise exception if object is found.
+        """
+        found_obj: BaseModel | None = await self.find_by_param(param_name, param_value)
+
+        if found_obj:
+            CRUDException.raise_already_exists(self.model_name, param_name, param_value)
+
+        return found_obj
+
     async def patch_obj(self, id_: int, new_data: BaseSchema) -> bool:
         """
         Updates object values into db with new data;
