@@ -8,7 +8,7 @@ class ProductCountModel(BaseModel):
 
     id = Column(Integer, primary_key=True)
     count = Column(Integer)
-    datetime = Column(DateTime, unique=True)
+    datetime = Column(DateTime)
 
     product_id = Column(
         Integer, ForeignKey('products.id',

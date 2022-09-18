@@ -22,7 +22,7 @@ from src.utils.response_generation.main import get_text
 
 router = APIRouter(
     prefix="/product_counts",
-    tags=["product_counts"],
+    tags=["product counts"],
 )
 
 
@@ -35,7 +35,8 @@ async def get_all_product_counts(product_count: ProductCountInterfaceGetAll = De
     """
     crud = ProductCountOperation(product_count.db)
     return await crud.find_all_by_params(product_count=product_count.count,
-                                         datetime=product_count.datetime,
+                                         from_dt=product_count.from_dt,
+                                         to_dt=product_count.to_dt,
                                          product_id=product_count.product_id,
                                          warehouse_group_id=product_count.warehouse_group_id,
                                          offset=product_count.offset,

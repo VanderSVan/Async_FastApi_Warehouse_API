@@ -52,13 +52,18 @@ def check_input_product_count_data_for_post(func):
     return wrapper
 
 
-async def _check_product_count_duplicate(self,
-                                         new_data: ProductCountPatchSchema | ProductCountPostSchema
-                                         ) -> NoReturn:
-    duplicate: ProductCountModel | None = await self.find_by_param('datetime', new_data.datetime)
-    if (
-            duplicate and
-            duplicate.product_id == new_data.product_id and
-            duplicate.warehouse_group_id == new_data.warehouse_group_id
-    ):
+async def _check_product_count_duplicate(
+        self,
+        new_data: ProductCountPatchSchema | ProductCountPostSchema
+) -> NoReturn:
+    """
+    Searches for existing data, if found then raise an exception.
+    """
+    duplicate: ProductCountModel | None = await self.find_all_by_params(
+        from_dt=new_data.datetime,
+        to_dt=new_data.datetime,
+        product_id=new_data.product_id,
+        warehouse_group_id=new_data.warehouse_group_id
+    )
+    if duplicate:
         CRUDException.raise_duplicate_err(self.model_name)

@@ -19,7 +19,8 @@ from src.api.dependencies.auth import get_current_admin
 @dataclass
 class ProductCountInterfaceGetAll:
     count: int = Query(default=None, description="Product count")
-    datetime: dt = Query(default=None, description="Format: 2022-11-11T11:11:11")
+    from_dt: dt = Query(default=None, description='Datetime from. (format: 2022-11-11T11:11:11)')
+    to_dt: dt = Query(default=None, description='To datetime. (format: 2022-11-12T11:11:11)')
     product_id: int = Query(default=None, description="Product id")
     warehouse_group_id: int = Query(default=None, description="Warehouse group id")
     offset: int = Query(default=None, description='How far to offset')
