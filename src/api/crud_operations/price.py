@@ -1,3 +1,5 @@
+from datetime import datetime as dt
+
 from sqlalchemy import select, update, insert, and_, desc
 
 from src.api.schemas.price.base_schemas import (PricePatchSchema,
@@ -23,20 +25,23 @@ class PriceOperation(ModelOperation):
         :param kwargs: price parameters
         :return: Found list of `PriceModel` or list of None.
         """
-        price = kwargs.get('price')
-        datetime = kwargs.get('datetime')
-        product_id = kwargs.get('product_id')
-        warehouse_group_id = kwargs.get('warehouse_group_id')
-        offset = kwargs.get('offset')
-        limit = kwargs.get('limit')
+        price: int = kwargs.get('price')
+        from_dt: dt = kwargs.get('from_dt')
+        to_dt: dt = kwargs.get('to_dt')
+        product_id: int = kwargs.get('product_id')
+        warehouse_group_id: int = kwargs.get('warehouse_group_id')
+        offset: int = kwargs.get('offset')
+        limit: int = kwargs.get('limit')
         query = (
             select(self.model)
             .where(
                 and_(
                     (PriceModel.price <= price
                      if price is not None else True),
-                    (PriceModel.datetime <= datetime
-                     if datetime is not None else True),
+                    (PriceModel.datetime >= from_dt
+                     if from_dt is not None else True),
+                    (PriceModel.datetime <= to_dt
+                     if to_dt is not None else True),
                     (PriceModel.product_id == product_id
                      if product_id is not None else True),
                     (PriceModel.warehouse_group_id == warehouse_group_id
