@@ -6,23 +6,27 @@ from src.api.models.product import ProductModel
 from src.api.models.warehouse_group import WarehouseGroupModel
 from src.api.models.warehouse import WarehouseModel
 from src.api.models.price import PriceModel
+from src.api.models.product_count import ProductCountModel
 
 
 def prepare_data_for_insertion(users: list,
                                products: list,
                                warehouse_groups: list,
                                warehouses: list,
-                               prices: list
+                               prices: list,
+                               product_count: list
                                ) -> dict:
     """Main function."""
     users: list[dict] = encode_user_passwords(users)
     prices: list[dict] = process_dt_objects(prices)
+    product_count: list[dict] = process_dt_objects(product_count)
     return {
         UserModel: users,
         ProductModel: products,
         WarehouseGroupModel: warehouse_groups,
         WarehouseModel: warehouses,
-        PriceModel: prices
+        PriceModel: prices,
+        ProductCountModel: product_count
     }
 
 
