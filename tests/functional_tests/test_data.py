@@ -148,90 +148,90 @@ product_count_json: list = [
         "count": 1000,
         "datetime": "2022-11-11T11:11:11",
         "product_id": 1,
-        "warehouse_group_id": 1
+        "warehouse_id": 1
     },
     {
         "id": 2,
         "count": 100,
         "datetime": "2022-11-12T11:11:11",
         "product_id": 1,
-        "warehouse_group_id": 1
+        "warehouse_id": 1
     },
     {
         "id": 3,
         "count": 10000,
         "datetime": "2022-11-11T11:11:11",
         "product_id": 1,
-        "warehouse_group_id": 2
+        "warehouse_id": 2
     },
     {
         "id": 4,
         "count": 2000,
         "datetime": "2022-11-12T11:11:11",
         "product_id": 1,
-        "warehouse_group_id": 2
+        "warehouse_id": 2
     },
     {
         "id": 5,
         "count": 7500,
         "datetime": "2022-11-11T11:11:11",
         "product_id": 2,
-        "warehouse_group_id": 2
+        "warehouse_id": 2
     },
     {
         "id": 6,
         "count": 75,
         "datetime": "2022-11-13T11:11:11",
         "product_id": 2,
-        "warehouse_group_id": 2
+        "warehouse_id": 2
     },
     {
         "id": 7,
         "count": 14000,
         "datetime": "2022-11-13T11:11:11",
         "product_id": 2,
-        "warehouse_group_id": 3
+        "warehouse_id": 3
     },
     {
         "id": 8,
         "count": 100000,
         "datetime": "2022-11-11T11:11:11",
         "product_id": 3,
-        "warehouse_group_id": 1
+        "warehouse_id": 1
     },
     {
         "id": 9,
         "count": 1000,
         "datetime": "2022-11-11T11:11:11",
         "product_id": 3,
-        "warehouse_group_id": 2
+        "warehouse_id": 2
     },
     {
         "id": 10,
         "count": 15000,
         "datetime": "2022-11-11T11:11:11",
         "product_id": 3,
-        "warehouse_group_id": 3
+        "warehouse_id": 3
     },
     {
         "id": 11,
         "count": 1,
         "datetime": "2022-11-12T11:11:11",
         "product_id": 3,
-        "warehouse_group_id": 1
+        "warehouse_id": 1
     },
     {
         "id": 12,
         "count": 999,
         "datetime": "2022-11-12T11:11:11",
         "product_id": 3,
-        "warehouse_group_id": 2
+        "warehouse_id": 2
     },
     {
         "id": 13,
         "count": 150,
         "datetime": "2022-11-12T11:11:11",
         "product_id": 3,
-        "warehouse_group_id": 3
+        "warehouse_id": 3
     },
 ]

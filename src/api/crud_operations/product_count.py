@@ -28,7 +28,7 @@ class ProductCountOperation(ModelOperation):
         from_dt: dt = kwargs.get('from_dt')
         to_dt: dt = kwargs.get('to_dt')
         product_id: int = kwargs.get('product_id')
-        warehouse_group_id: int = kwargs.get('warehouse_group_id')
+        warehouse_id: int = kwargs.get('warehouse_id')
         offset: int = kwargs.get('offset')
         limit: int = kwargs.get('limit')
         query = (
@@ -43,8 +43,8 @@ class ProductCountOperation(ModelOperation):
                      if to_dt is not None else True),
                     (ProductCountModel.product_id == product_id
                      if product_id is not None else True),
-                    (ProductCountModel.warehouse_group_id == warehouse_group_id
-                     if warehouse_group_id is not None else True)
+                    (ProductCountModel.warehouse_id == warehouse_id
+                     if warehouse_id is not None else True)
                 )
             )
             .order_by(desc(self.model.datetime))

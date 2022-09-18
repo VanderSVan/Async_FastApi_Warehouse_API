@@ -22,7 +22,7 @@ class ProductCountInterfaceGetAll:
     from_dt: dt = Query(default=None, description='Datetime from. (format: 2022-11-11T11:11:11)')
     to_dt: dt = Query(default=None, description='To datetime. (format: 2022-11-12T11:11:11)')
     product_id: int = Query(default=None, description="Product id")
-    warehouse_group_id: int = Query(default=None, description="Warehouse group id")
+    warehouse_id: int = Query(default=None, description="Warehouse group id")
     offset: int = Query(default=None, description='How far to offset')
     limit: int = Query(default=None, description='How much to limit')
     admin: UserModel = Depends(get_current_admin)
@@ -50,7 +50,7 @@ class ProductCountInterfacePatch:
         'count': 1000,
         'datetime': "2022-11-11T11:11:11",
         'product_id': 1,
-        'warehouse_group_id': 2,
+        'warehouse_id': 2,
     }
                                          )
     admin: UserModel = Depends(get_current_admin)
@@ -63,7 +63,7 @@ class ProductCountInterfacePost:
         'count': 20000,
         'datetime': "2022-11-11T11:11:11",
         'product_id': 1,
-        'warehouse_group_id': 1,
+        'warehouse_id': 1,
     }
                                         )
     admin: UserModel = Depends(get_current_admin)

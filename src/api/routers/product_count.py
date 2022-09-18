@@ -38,7 +38,7 @@ async def get_all_product_counts(product_count: ProductCountInterfaceGetAll = De
                                          from_dt=product_count.from_dt,
                                          to_dt=product_count.to_dt,
                                          product_id=product_count.product_id,
-                                         warehouse_group_id=product_count.warehouse_group_id,
+                                         warehouse_id=product_count.warehouse_id,
                                          offset=product_count.offset,
                                          limit=product_count.limit)
 

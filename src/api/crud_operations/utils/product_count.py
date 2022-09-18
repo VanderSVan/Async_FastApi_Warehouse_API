@@ -25,7 +25,7 @@ def check_input_product_count_data_for_patch(func):
         merged_data: ProductCountPatchSchema = old_data.copy(update=data_to_update)
 
         await check_product_existence(merged_data.product_id, self.db)
-        await check_warehouse_group_existence(merged_data.warehouse_group_id, self.db)
+        await check_warehouse_group_existence(merged_data.warehouse_id, self.db)
         await _check_product_count_duplicate(self, merged_data)
 
         return await func(self, new_data, id_, *args, **kwargs)
@@ -44,7 +44,7 @@ def check_input_product_count_data_for_post(func):
         Checks input data for post `product_count` object.
         """
         await check_product_existence(new_data.product_id, self.db)
-        await check_warehouse_group_existence(new_data.warehouse_group_id, self.db)
+        await check_warehouse_group_existence(new_data.warehouse_id, self.db)
         await _check_product_count_duplicate(self, new_data)
 
         return await func(self, new_data, *args, **kwargs)
@@ -63,7 +63,7 @@ async def _check_product_count_duplicate(
         from_dt=new_data.datetime,
         to_dt=new_data.datetime,
         product_id=new_data.product_id,
-        warehouse_group_id=new_data.warehouse_group_id
+        warehouse_id=new_data.warehouse_id
     )
     if duplicate:
         CRUDException.raise_duplicate_err(self.model_name)

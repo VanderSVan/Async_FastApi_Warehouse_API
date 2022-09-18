@@ -15,7 +15,7 @@ class ProductCountModel(BaseModel):
                             onupdate='CASCADE',
                             ondelete='CASCADE')
     )
-    warehouse_group_id = Column(
+    warehouse_id = Column(
         Integer, ForeignKey('warehouse_groups.id',
                             onupdate='CASCADE',
                             ondelete='CASCADE')
