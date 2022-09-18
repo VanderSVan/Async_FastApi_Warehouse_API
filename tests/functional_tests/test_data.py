@@ -160,7 +160,7 @@ product_count_json: list = [
     {
         "id": 3,
         "count": 10000,
-        "datetime": "2022-11-11T11:11:11",
+        "datetime": "2022-09-16T10:10:00",
         "product_id": 1,
         "warehouse_id": 2
     },
@@ -181,14 +181,14 @@ product_count_json: list = [
     {
         "id": 6,
         "count": 75,
-        "datetime": "2022-11-13T11:11:11",
+        "datetime": "2022-09-17T10:10:00",
         "product_id": 2,
         "warehouse_id": 2
     },
     {
         "id": 7,
         "count": 14000,
-        "datetime": "2022-11-13T11:11:11",
+        "datetime": "2022-09-15T10:10:00",
         "product_id": 2,
         "warehouse_id": 3
     },
@@ -209,7 +209,7 @@ product_count_json: list = [
     {
         "id": 10,
         "count": 15000,
-        "datetime": "2022-11-11T11:11:11",
+        "datetime": "2022-09-17T15:10:00",
         "product_id": 3,
         "warehouse_id": 3
     },
@@ -223,14 +223,14 @@ product_count_json: list = [
     {
         "id": 12,
         "count": 999,
-        "datetime": "2022-11-12T11:11:11",
+        "datetime": "2022-09-12T11:11:11",
         "product_id": 3,
         "warehouse_id": 2
     },
     {
         "id": 13,
         "count": 150,
-        "datetime": "2022-11-12T11:11:11",
+        "datetime": "2022-09-20T08:10:00",
         "product_id": 3,
         "warehouse_id": 3
     },
