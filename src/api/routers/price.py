@@ -31,7 +31,7 @@ async def get_all_prices(price: PriceInterfaceGetAll = Depends()
                          ) -> list[PriceModel] | list[None]:
     """
     Returns all prices from db by parameters.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = PriceOperation(price.db)
     return await crud.find_all_by_params(price=price.price,
@@ -48,7 +48,7 @@ async def get_price(price: PriceInterfaceGet = Depends()
                     ) -> PriceModel | None:
     """
     Returns one price from db by price id.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = PriceOperation(price.db)
     return await crud.find_by_id(price.price_id)

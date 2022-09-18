@@ -32,7 +32,7 @@ async def get_all_warehouses(warehouse: WarehouseInterfaceGetAll = Depends()
                              ) -> list[WarehouseModel] | list[None]:
     """
     Returns all warehouses from db by parameters.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = WarehouseOperation(warehouse.db)
     return await crud.find_all_by_params(name=warehouse.name,
@@ -46,7 +46,7 @@ async def get_warehouse(warehouse: WarehouseInterfaceGet = Depends()
                         ) -> WarehouseModel | None:
     """
     Returns one warehouse from db by warehouse id.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = WarehouseOperation(warehouse.db)
     return await crud.find_by_id(warehouse.warehouse_id)

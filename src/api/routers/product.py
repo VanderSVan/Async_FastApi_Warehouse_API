@@ -31,7 +31,7 @@ router = APIRouter(
 async def get_all_products(product: ProductSwaggerGetAll = Depends()) -> list[ProductModel] | list[None]:
     """
     Returns all products from db by parameters.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = ProductOperation(product.db)
 
@@ -46,7 +46,7 @@ async def get_all_products(product: ProductSwaggerGetAll = Depends()) -> list[Pr
 async def get_product(product: ProductSwaggerGet = Depends()) -> ProductModel | None:
     """
     Returns one product from db by product id.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = ProductOperation(product.db)
     return await crud.find_by_id(product.product_id)
