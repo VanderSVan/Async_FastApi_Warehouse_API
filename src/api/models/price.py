@@ -15,8 +15,8 @@ class PriceModel(BaseModel):
                             onupdate='CASCADE',
                             ondelete='CASCADE')
     )
-    warehouse_group_id = Column(
-        Integer, ForeignKey('warehouse_groups.id',
+    warehouse_id = Column(
+        Integer, ForeignKey('warehouses.id',
                             onupdate='CASCADE',
                             ondelete='CASCADE')
     )

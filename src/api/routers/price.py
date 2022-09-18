@@ -38,7 +38,7 @@ async def get_all_prices(price: PriceInterfaceGetAll = Depends()
                                          from_dt=price.from_dt,
                                          to_dt=price.to_dt,
                                          product_id=price.product_id,
-                                         warehouse_group_id=price.warehouse_group_id,
+                                         warehouse_id=price.warehouse_id,
                                          offset=price.offset,
                                          limit=price.limit)
 
