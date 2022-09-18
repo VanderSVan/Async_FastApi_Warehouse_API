@@ -31,7 +31,7 @@ router = APIRouter(
 async def get_all_products(product: ProductSwaggerGetAll = Depends()) -> list[ProductModel] | list[None]:
     """
     Returns all products from db by parameters.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = ProductOperation(product.db)
 
@@ -39,14 +39,14 @@ async def get_all_products(product: ProductSwaggerGetAll = Depends()) -> list[Pr
         product: ProductModel = await crud.find_by_param_or_404('name', product.name.lower())
         return [product]
 
-    return await crud.find_all()
+    return await crud.find_all(offset=product.offset, limit=product.limit)
 
 
 @router.get("/{product_id}", **asdict(ProductOutputGet()))
 async def get_product(product: ProductSwaggerGet = Depends()) -> ProductModel | None:
     """
     Returns one product from db by product id.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = ProductOperation(product.db)
     return await crud.find_by_id(product.product_id)

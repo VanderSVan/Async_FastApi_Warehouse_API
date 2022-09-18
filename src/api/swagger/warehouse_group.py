@@ -19,6 +19,8 @@ from src.api.dependencies.auth import (get_current_admin,
 @dataclass
 class WarehouseGroupSwaggerGetAll:
     name: str = Query(default=None, description='Warehouse group name')
+    offset: int = Query(default=None, description='How far to offset')
+    limit: int = Query(default=None, description='How many limit')
     current_confirmed_user: UserModel = Depends(get_current_confirmed_user)
     db: AsyncSession = Depends(get_db)
 
@@ -59,7 +61,7 @@ class WarehouseGroupOutputGetAll:
         "**Returns** all warehouse groups from db by **parameters**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = list[WarehouseGroupGetSchema]
+    response_model: Optional[Type[Any]] = list[WarehouseGroupGetSchema] | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'List of warehouse groups'
 
@@ -71,7 +73,7 @@ class WarehouseGroupOutputGet:
         "**Returns** warehouse group from db by **warehouse group id**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = WarehouseGroupGetSchema
+    response_model: Optional[Type[Any]] = WarehouseGroupGetSchema | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'WarehouseGroup data'
 

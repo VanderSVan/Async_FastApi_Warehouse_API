@@ -73,7 +73,7 @@ class UserOutputGetAll:
         "**Returns** all users from db by **parameters**. <br />"
         "Only available to **admins.**"
     )
-    response_model: Optional[Type[Any]] = list[UserGetSchema]
+    response_model: Optional[Type[Any]] = list[UserGetSchema] | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'List of users'
     
@@ -85,7 +85,7 @@ class UserOutputGet:
         "**Returns** user from db by **user id**. <br />"
         "Only available to **admins.**"
     )
-    response_model: Optional[Type[Any]] = UserGetSchema
+    response_model: Optional[Type[Any]] = UserGetSchema | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'User data'
     

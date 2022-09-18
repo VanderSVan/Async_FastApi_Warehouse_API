@@ -8,14 +8,14 @@ class ProductCountModel(BaseModel):
 
     id = Column(Integer, primary_key=True)
     count = Column(Integer)
-    datetime = Column(DateTime, unique=True)
+    datetime = Column(DateTime)
 
     product_id = Column(
         Integer, ForeignKey('products.id',
                             onupdate='CASCADE',
                             ondelete='CASCADE')
     )
-    warehouse_group_id = Column(
+    warehouse_id = Column(
         Integer, ForeignKey('warehouse_groups.id',
                             onupdate='CASCADE',
                             ondelete='CASCADE')

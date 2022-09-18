@@ -31,7 +31,7 @@ router = APIRouter(
 async def get_all_warehouse_groups(warehouse_group: WarehouseGroupSwaggerGetAll = Depends()) -> list[WarehouseGroupModel] | list[None]:
     """
     Returns all warehouse groups from db by parameters.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = WarehouseGroupOperation(warehouse_group.db)
 
@@ -39,14 +39,14 @@ async def get_all_warehouse_groups(warehouse_group: WarehouseGroupSwaggerGetAll 
         warehouse_group: WarehouseGroupModel = await crud.find_by_param_or_404('name', warehouse_group.name.lower())
         return [warehouse_group]
 
-    return await crud.find_all()
+    return await crud.find_all(offset=warehouse_group.offset, limit=warehouse_group.limit)
 
 
 @router.get("/{warehouse_group_id}", **asdict(WarehouseGroupOutputGet()))
 async def get_warehouse_group(warehouse_group: WarehouseGroupSwaggerGet = Depends()) -> WarehouseGroupModel | None:
     """
     Returns one warehouse group from db by warehouse group id.
-    Only available to admins.
+    Available to all registered users.
     """
     crud = WarehouseGroupOperation(warehouse_group.db)
     return await crud.find_by_id(warehouse_group.warehouse_group_id)

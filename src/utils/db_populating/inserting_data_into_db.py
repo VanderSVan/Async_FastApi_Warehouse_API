@@ -12,7 +12,9 @@ from src.utils.color_logging.main import logger
 from src.utils.db_populating.input_data import (users_json,
                                                 products_json,
                                                 warehouse_groups_json,
-                                                warehouses_json)
+                                                warehouses_json,
+                                                prices_json,
+                                                product_count_json)
 
 
 async def insert_data_to_db(async_session: AsyncSession) -> NoReturn:
@@ -25,7 +27,9 @@ async def insert_data_to_db(async_session: AsyncSession) -> NoReturn:
         prepared_data: dict = prepare_data_for_insertion(users_json,
                                                          products_json,
                                                          warehouse_groups_json,
-                                                         warehouses_json
+                                                         warehouses_json,
+                                                         prices_json,
+                                                         product_count_json
                                                          )
         await _insert_full_data_to_db(prepared_data, async_session)
         logger.success("Data has been added to db")

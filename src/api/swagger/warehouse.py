@@ -20,6 +20,8 @@ from src.api.dependencies.auth import (get_current_admin,
 class WarehouseInterfaceGetAll:
     name: str = Query(default=None, description="Warehouse name")
     warehouse_group_id: int = Query(default=None, description="Warehouse group id")
+    offset: int = Query(default=None, description='How far to offset')
+    limit: int = Query(default=None, description='How many limit')
     current_confirmed_user: UserModel = Depends(get_current_confirmed_user)
     db: AsyncSession = Depends(get_db)
 
@@ -64,7 +66,7 @@ class WarehouseOutputGetAll:
         "**Returns** all warehouse from db by **parameters**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = list[WarehouseGetSchema]
+    response_model: Optional[Type[Any]] = list[WarehouseGetSchema] | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'List of warehouse'
 

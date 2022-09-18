@@ -29,12 +29,16 @@ class ModelOperation:
 
         return max_id
 
-    async def find_all(self) -> list[BaseModel]:
+    async def find_all(self, limit: int, offset: int) -> list[BaseModel]:
         """
         Finds all objects in the db.
         :return: objects list or an empty list if no objects were found.
         """
-        query = select(self.model).order_by(asc(self.model.id))
+        query = (select(self.model)
+                 .order_by(asc(self.model.id))
+                 .offset(offset)
+                 .limit(limit)
+                 )
         return await QueryExecutor.get_multiple_result(query, self.db)
 
     async def find_by_id(self, id_: int) -> BaseModel | None:
@@ -79,6 +83,19 @@ class ModelOperation:
 
         if not found_obj:
             CRUDException.raise_param_not_found(self.model_name, param_name, param_value)
+
+        return found_obj
+
+    async def raise_err_if_exists(self, param_name: str, param_value: Any) -> None:
+        """
+        Finds the object by the given parameter,
+        if there is such object, then raises an error.
+        :return: None or raise exception if object is found.
+        """
+        found_obj: BaseModel | None = await self.find_by_param(param_name, param_value)
+
+        if found_obj:
+            CRUDException.raise_duplicate_err(self.model_name)
 
         return found_obj
 

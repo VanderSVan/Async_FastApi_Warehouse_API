@@ -19,6 +19,8 @@ from src.api.dependencies.auth import (get_current_admin,
 @dataclass
 class ProductSwaggerGetAll:
     name: str = Query(default=None, description='Product name')
+    offset: int = Query(default=None, description='How far to offset')
+    limit: int = Query(default=None, description='How many limit')
     current_confirmed_user: UserModel = Depends(get_current_confirmed_user)
     db: AsyncSession = Depends(get_db)
 
@@ -59,7 +61,7 @@ class ProductOutputGetAll:
         "**Returns** all products from db by **parameters**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = list[ProductGetSchema]
+    response_model: Optional[Type[Any]] = list[ProductGetSchema] | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'List of products'
     
@@ -71,7 +73,7 @@ class ProductOutputGet:
         "**Returns** product from db by **product id**.<br />"
         "Available to all **registered users.**"
     )
-    response_model: Optional[Type[Any]] = ProductGetSchema
+    response_model: Optional[Type[Any]] = ProductGetSchema | None
     status_code: Optional[int] = status.HTTP_200_OK
     response_description: str = 'Product data'
 
