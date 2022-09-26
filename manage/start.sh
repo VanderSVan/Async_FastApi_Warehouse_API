@@ -10,7 +10,7 @@ set +a
 
 case "$1" in
 --dev)
-  export COMPOSE_PROJECT_NAME=warehouse_dev
+  export COMPOSE_PROJECT_NAME=warehouse-dev
   echo "The development containers are running ..."
   docker compose -f docker/docker-compose.base.yml -f docker/docker-compose.dev.yml up --build
   ;;
