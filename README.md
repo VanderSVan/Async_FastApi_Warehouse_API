@@ -1,6 +1,8 @@
 # REST-API WAREHOUSE
-# !!!ATTENTION!!! Development in progress. Everything can change.
-This application is designed to manage the data of warehouse.
+# !!!ATTENTION!!!ВНИМАНИЕ!!!
+Этот проект выполнен ровно за 24ч (рабочих часов).
+Это был стресс-тест.
+Судить строго запрещаю :)
 ---
 ## Project stack:
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
